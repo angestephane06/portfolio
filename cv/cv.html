@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>CV — Kouamé Ange-Stéphane KONAN</title>
+<style>
+  @page { size: A4; margin: 11mm 13mm; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 9.3pt/1.36 "Segoe UI", Calibri, Arial, sans-serif; color: #1b1b1b; }
+  h1 { font-size: 19pt; margin: 0; color: #12305e; letter-spacing: 0.2px; }
+  .title { font-size: 11pt; font-weight: 600; color: #2c4a7a; margin: 1px 0 3px; }
+  .contact { font-size: 8.6pt; color: #333; }
+  .contact a { color: #12305e; text-decoration: none; white-space: nowrap; }
+  h2 { font-size: 9.6pt; text-transform: uppercase; letter-spacing: 1px; color: #12305e;
+       border-bottom: 1.4px solid #12305e; margin: 9px 0 4px; padding-bottom: 1px; }
+  .row { display: flex; justify-content: space-between; gap: 8px; margin-top: 4px; }
+  .row b { font-size: 9.6pt; }
+  .date { white-space: nowrap; color: #444; font-size: 8.8pt; }
+  .place { font-style: italic; color: #444; }
+  ul { margin: 2px 0 0; padding-left: 14px; }
+  li { margin: 1px 0; }
+  p { margin: 2px 0; }
+  .skills p { margin: 1.5px 0; }
+  .repo { color: #12305e; font-size: 8.6pt; }
+</style>
+</head>
+<body>
+  <h1>Kouamé Ange-Stéphane KONAN</h1>
+  <div class="title">Ingénieur IA — évaluation de systèmes LLM, IA multimodale et vision par ordinateur</div>
+  <div class="contact">
+    kouame.konan20@inphb.ci · +33 7 58 45 99 42 · Rennes ·
+    <a href="https://github.com/angestephane06">github.com/angestephane06</a> ·
+    <a href="https://www.linkedin.com/in/kouam%C3%A9konan/">linkedin.com/in/kouamékonan</a> ·
+    <a href="https://portfolio-kouame.vercel.app">portfolio-kouame.vercel.app</a>
+  </div>
+
+  <h2>Profil</h2>
+  <p>Ingénieur ESIR en imagerie numérique et IA, diplômé en novembre 2026. Je conçois des systèmes d'IA
+  qui tournent en local et je les évalue de façon reproductible : banc d'évaluation d'agents LLM en bac à
+  sable Docker, plateforme Graph RAG multimodale hors réseau, segmentation par U-Net quantifiée pour le CPU.</p>
+
+  <h2>Expérience professionnelle</h2>
+  <div class="row"><span><b>Ingénieur R&amp;D IA multimodale — stage de fin d'études</b> · <span class="place">eXo maKina, Paris</span></span><span class="date">06/2026 – 10/2026</span></div>
+  <ul>
+    <li>Plateforme d'analyse et de recoupement de données visuelles et factuelles, exécutée entièrement hors réseau :
+      graphe de connaissances (Neo4j, Cypher) et base vectorielle (ChromaDB) sur des descriptions d'images produites par
+      un modèle vision-langage (Qwen-VL), LLM locaux via Ollama.</li>
+    <li>Routeur qui oriente chaque question vers une requête structurée (Cypher/SQL) ou une recherche sémantique ;
+      agent de synthèse qui confronte les sources et cite ses preuves ; mémoire conversationnelle.</li>
+    <li>Évaluation par jeu de questions de vérification : comparaison des modèles chargés d'écrire les requêtes,
+      analyse des faux positifs visuels (affiches, écrans, unes de journaux) et simplification de l'architecture.</li>
+    <li>Inférence sur GPU (CUDA, ONNX Runtime) après résolution d'un repli forcé sur CPU ; interface Gradio.</li>
+  </ul>
+  <div class="row"><span><b>Développeur web et mobile</b> · <span class="place">ID Protect, Paris</span></span><span class="date">07/2025 – 09/2025</span></div>
+  <ul><li>Modules d'analyse de données et de détection de fraude.</li></ul>
+  <div class="row"><span><b>Développeur full-stack et mobile</b> · <span class="place">Akuna Lab, Yamoussoukro</span></span><span class="date">10/2022 – 06/2024</span></div>
+  <ul><li>Applications mobiles multiplateformes (Flutter/Dart), bases de données SQL, prototypage rapide, Git, méthode agile.</li></ul>
+
+  <h2>Projets</h2>
+  <div class="row"><span><b>Banc d'évaluation d'agents LLM</b> · <span class="repo">github.com/angestephane06/llm-ctf-bench</span></span><span class="date">2026</span></div>
+  <ul>
+    <li>15 épreuves CTF publiques (InterCode-CTF), un conteneur Docker jetable par épisode, sans réseau ni privilèges,
+      délais par commande ; campagnes décrites en YAML, reproductibles et reprenables ; tableau de bord des traces.</li>
+    <li>135 épisodes (3 modèles locaux × 15 tâches × 3 graines) : 51 % de réussite pour mistral-small3.2 (24B) contre
+      20 à 31 % pour les modèles 8B, qui échouent surtout en répétant la même commande après une erreur.</li>
+    <li>pytest, CI GitHub Actions et GitLab CI (tests de l'isolation réseau inclus), playbook Ansible.</li>
+  </ul>
+  <div class="row"><span><b>Asymétries 3D : ICP contre U-Net, export ONNX INT8</b> · <span class="repo">github.com/angestephane06/asymmetry-unet</span></span><span class="date">2026</span></div>
+  <ul>
+    <li>Portage MATLAB → Python d'un ICP de plan de symétrie et correction de son initialisation (asymétrie mesurée
+      sur un visage symétrique divisée par 275).</li>
+    <li>U-Net sur cartes de profondeur et d'asymétrie : Dice 0,90 contre 0,43 pour le seuillage ICP. Quantification INT8
+      (ONNX Runtime) : même précision, modèle 3,7 fois plus petit et 1,9 fois plus rapide sur CPU.</li>
+  </ul>
+  <p><b>Autres travaux (ESIR) :</b> recherche d'images par le contenu (SIFT contre VGG16, KD-Tree, mAP), VQ-VAE,
+  Graph RAG (projet industriel), raytracing et Jeu de la vie en CUDA/MPI, géométrie épipolaire, fusion de segmentations
+  (STAPLE).</p>
+
+  <h2>Formation</h2>
+  <div class="row"><span><b>Diplôme d'ingénieur — Imagerie numérique et IA</b> · <span class="place">ESIR, Université de Rennes</span></span><span class="date">09/2024 – 11/2026</span></div>
+  <p>Vision par ordinateur, deep learning, imagerie 3D, compression vidéo, calcul haute performance.</p>
+  <div class="row"><span><b>Cycle ingénieur — STIC</b> · <span class="place">INP-HB, Yamoussoukro</span></span><span class="date">09/2022 – 06/2024</span></div>
+  <div class="row"><span><b>Classes préparatoires MPSI</b> · <span class="place">INP-HB, Yamoussoukro</span></span><span class="date">08/2020 – 06/2022</span></div>
+
+  <h2>Compétences</h2>
+  <div class="skills">
+    <p><b>LLM et IA générative :</b> LLM locaux (Ollama), RAG et Graph RAG, agents, modèles vision-langage, LangChain, embeddings, fine-tuning.</p>
+    <p><b>Évaluation :</b> protocoles reproductibles, variance entre graines, Dice, IoU, précision, rappel, études comparatives.</p>
+    <p><b>Deep learning et vision :</b> PyTorch, CNN, U-Net, VQ-VAE, Transformers, YOLO, ONNX Runtime, quantification, OpenCV, SIFT, ICP, CUDA.</p>
+    <p><b>Ingénierie :</b> Python, C++, TypeScript, Java, Linux et shell, Docker, Git, GitHub Actions, GitLab CI, Ansible, pytest, FastAPI, Gradio, React.</p>
+    <p><b>Données :</b> Neo4j (Cypher), ChromaDB, SQLite, PostgreSQL.</p>
+    <p><b>Langues :</b> français (langue maternelle), anglais professionnel (TOEIC B2).</p>
+  </div>
+</body>
+</html>
