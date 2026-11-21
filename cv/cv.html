@@ -67,10 +67,10 @@
   </ul>
   <div class="row"><span><b>Asymétries 3D : ICP contre U-Net, export ONNX INT8</b> · <span class="repo">github.com/angestephane06/asymmetry-unet</span></span><span class="date">2026</span></div>
   <ul>
-    <li>Portage MATLAB → Python d'un ICP de plan de symétrie et correction de son initialisation (asymétrie mesurée
-      sur un visage symétrique divisée par 275).</li>
-    <li>U-Net sur cartes de profondeur et d'asymétrie : Dice 0,90 contre 0,43 pour le seuillage ICP. Quantification INT8
-      (ONNX Runtime) : même précision, modèle 3,7 fois plus petit et 1,9 fois plus rapide sur CPU.</li>
+    <li>Prolongement d'un projet ESIR : plan de symétrie par ICP porté de MATLAB en Python, surfaces de synthèse avec vérité terrain exacte.</li>
+    <li>L'ICP mesure l'asymétrie mais sa carte ne dit pas quel côté est déformé ; le U-Net, qui part de cette carte, retrouve
+      le bon côté sur 1 000 visages de test (Dice 0,88, contre 0,41 en seuillant la carte). Quantification INT8 (ONNX
+      Runtime) : même précision, modèle 3,7 fois plus petit et 1,9 fois plus rapide sur CPU.</li>
   </ul>
   <p><b>Autres travaux (ESIR) :</b> recherche d'images par le contenu (SIFT contre VGG16, KD-Tree, mAP), VQ-VAE,
   Graph RAG (projet industriel), raytracing et Jeu de la vie en CUDA/MPI, géométrie épipolaire, fusion de segmentations

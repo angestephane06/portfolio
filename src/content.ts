@@ -16,6 +16,8 @@ export interface Project {
   github?: string;
   report?: string;
   image?: string;
+  video?: string;
+  poster?: string;
 }
 
 export interface Entry {
@@ -49,6 +51,8 @@ export const ui = {
   education: { fr: "Formation", en: "Education" },
   skills: { fr: "Compétences", en: "Skills" },
   contact: { fr: "Contact", en: "Contact" },
+  featuredTitle: { fr: "Projets phares", en: "Featured projects" },
+  available: { fr: "Basé à Rennes", en: "Based in Rennes, France" },
   problem: { fr: "Problème", en: "Problem" },
   approach: { fr: "Approche", en: "Approach" },
   result: { fr: "Résultat", en: "Result" },
@@ -81,7 +85,8 @@ export const featured: Project[] = [
     },
     tech: ["Python", "Docker", "Ollama", "pytest", "GitHub Actions", "GitLab CI", "Ansible", "Streamlit"],
     github: "https://github.com/angestephane06/llm-ctf-bench",
-    image: "/llm-ctf-bench-results.png",
+    video: "/media/bench.mp4",
+    poster: "/media/bench-poster.jpg",
   },
   {
     id: "multimodal-graph-rag",
@@ -101,6 +106,8 @@ export const featured: Project[] = [
     },
     tech: ["Ollama", "qwen3-vl", "Neo4j", "ChromaDB", "Gradio", "Python"],
     github: "https://github.com/angestephane06/multimodal-graph-rag",
+    video: "/media/graphrag.mp4",
+    poster: "/media/graphrag-poster.jpg",
   },
   {
     id: "unet",
@@ -108,22 +115,22 @@ export const featured: Project[] = [
       fr: "Asymétries 3D : ICP contre U-Net, export ONNX INT8",
       en: "3D asymmetry: ICP vs U-Net, ONNX INT8 export",
     },
-    context: { fr: "Projet personnel — 2026", en: "Personal project — 2026" },
+    context: { fr: "Prolongement d'un projet ESIR3 — 2026", en: "Extension of an ESIR3 project — 2026" },
     problem: {
-      fr: "La carte d'asymétrie d'une méthode par plan de symétrie montre qu'une surface 3D est asymétrique, mais pas où : une bosse à gauche allume aussi la zone miroir à droite.",
-      en: "A symmetry-plane asymmetry map shows that a 3D surface is asymmetric, but not where: a bump on the left also lights up the mirrored region on the right.",
+      fr: "Un ICP par plan de symétrie mesure précisément l'asymétrie d'une surface 3D, mais sa carte ne peut pas dire quel côté est déformé : une bosse à gauche crée aussi un écart à l'endroit symétrique, à droite.",
+      en: "A symmetry-plane ICP measures the asymmetry of a 3D surface precisely, but its map cannot tell which side is deformed: a bump on the left also creates a gap at the mirrored spot on the right.",
     },
     approach: {
-      fr: "Plan de symétrie par ICP (porté de MATLAB en Python, initialisation corrigée), surfaces de synthèse avec vérité terrain exacte, U-Net sur cartes de profondeur et d'asymétrie, export ONNX et quantification INT8 statique avec ONNX Runtime.",
-      en: "Symmetry plane by ICP (ported from MATLAB to Python, initialisation fixed), synthetic surfaces with exact ground truth, a U-Net on depth and asymmetry maps, ONNX export and static INT8 quantization with ONNX Runtime.",
+      fr: "Plan de symétrie par ICP (porté de MATLAB en Python, départ depuis les trois axes de l'ACP), surfaces de synthèse avec vérité terrain exacte, U-Net sur cartes de profondeur et d'asymétrie, export ONNX et quantification INT8 statique avec ONNX Runtime.",
+      en: "Symmetry plane by ICP (ported from MATLAB to Python, started from the three PCA axes), synthetic surfaces with exact ground truth, a U-Net on depth and asymmetry maps, ONNX export and static INT8 quantization with ONNX Runtime.",
     },
     result: {
-      fr: "Sur 1 000 surfaces de test : Dice 0,90 pour le U-Net contre 0,43 pour le seuillage de la carte ICP, et 0,7 % de fausses alertes contre 50 %. En INT8 : même Dice, modèle 3,7 fois plus petit et 1,9 fois plus rapide sur CPU.",
-      en: "On 1,000 test surfaces: Dice 0.90 for the U-Net against 0.43 for the thresholded ICP map, and 0.7 % false alarms against 50 %. In INT8: same Dice, a model 3.7 times smaller and 1.9 times faster on CPU.",
+      fr: "L'ICP retrouve le plan avec moins de 1° d'erreur, mais seuiller sa carte marque la déformation et son miroir : Dice 0,41 sur 1 000 visages de test. Le U-Net, qui part de cette carte, retrouve le bon côté : Dice 0,88, aucune fausse alerte sur les visages symétriques (0,74 s'il n'a vu que des formes abstraites). En INT8 : même Dice, 3,7 fois plus petit, 1,9 fois plus rapide sur CPU.",
+      en: "The ICP finds the plane within 1°, but thresholding its map marks the deformation and its mirror: Dice 0.41 on 1,000 test faces. The U-Net, which starts from that map, finds the right side: Dice 0.88, no false alarm on symmetric faces (0.74 if it only saw abstract shapes). In INT8: same Dice, 3.7 times smaller, 1.9 times faster on CPU.",
     },
     tech: ["PyTorch", "U-Net", "ONNX Runtime", "INT8", "ICP", "NumPy / SciPy"],
     github: "https://github.com/angestephane06/asymmetry-unet",
-    image: "/asymmetry-examples.png",
+    image: "/asymmetry-faces.png",
   },
   {
     id: "cbir",
@@ -281,4 +288,28 @@ export const skills: { title: T; items: string[] }[] = [
   { title: { fr: "IA et vision", en: "AI and vision" }, items: ["PyTorch", "OpenCV", "scikit-learn", "Ollama", "RAG / Graph RAG", "ONNX"] },
   { title: { fr: "Données", en: "Data" }, items: ["Neo4j", "ChromaDB", "SQLite", "pandas"] },
   { title: { fr: "Ingénierie", en: "Engineering" }, items: ["Linux", "Docker", "Git", "GitHub Actions", "GitLab CI", "Ansible", "pytest"] },
+];
+
+// Key results shown in the hero terminal and the stats band. Every figure comes from a
+// published run or report (see the repositories).
+export const highlights: { repo: string; line: T }[] = [
+  {
+    repo: "llm-ctf-bench",
+    line: { fr: "135 épisodes · 51 % pour le meilleur modèle", en: "135 episodes · 51 % for the best model" },
+  },
+  {
+    repo: "multimodal-graph-rag",
+    line: { fr: "Cypher 30/30 · précision@5 0,94", en: "Cypher 30/30 · precision@5 0.94" },
+  },
+  {
+    repo: "asymmetry-unet",
+    line: { fr: "visages : U-Net Dice 0,88 contre 0,41 · INT8 3,7× plus léger", en: "faces: U-Net Dice 0.88 vs 0.41 · INT8 3.7× smaller" },
+  },
+];
+
+export const stats: { value: T; label: T }[] = [
+  { value: { fr: "135", en: "135" }, label: { fr: "épisodes d'agents LLM en bac à sable", en: "sandboxed LLM agent episodes" } },
+  { value: { fr: "30/30", en: "30/30" }, label: { fr: "requêtes Cypher justes", en: "correct Cypher queries" } },
+  { value: { fr: "0,88", en: "0.88" }, label: { fr: "Dice du U-Net sur visages (ICP : 0,41)", en: "U-Net Dice on faces (ICP: 0.41)" } },
+  { value: { fr: "100 %", en: "100 %" }, label: { fr: "modèles exécutés en local", en: "models run locally" } },
 ];
