@@ -84,6 +84,25 @@ export const featured: Project[] = [
     image: "/llm-ctf-bench-results.png",
   },
   {
+    id: "multimodal-graph-rag",
+    title: { fr: "Graph RAG multimodal, évalué sur vérité terrain", en: "Multimodal Graph RAG, scored against ground truth" },
+    context: { fr: "Projet personnel — 2026", en: "Personal project — 2026" },
+    problem: {
+      fr: "Interroger une collection de photos en langage naturel, avec des modèles uniquement locaux, et savoir à quel point les réponses sont justes.",
+      en: "Query a photo collection in natural language with local models only, and know how right the answers are.",
+    },
+    approach: {
+      fr: "qwen3-vl décrit chaque image (légende, scène, objets) ; graphe Neo4j et vecteurs ChromaDB ; un LLM route la question, écrit le Cypher (lecture seule, délai de 10 s) et répond en citant les images. Chaque étape est mesurée sur COCO 2017.",
+      en: "qwen3-vl describes each image (caption, scene, objects); a Neo4j graph and ChromaDB vectors; an LLM routes the question, writes the Cypher (read-only, 10 s limit) and answers citing the images. Every stage is scored on COCO 2017.",
+    },
+    result: {
+      fr: "Sur 490 images : extraction des objets F1 0,87, routage 40/40, Cypher correct 30/30, précision@5 de 0,94 en recherche sémantique. Les comptages s'écartent de 20 % en médiane de la vérité COCO : l'erreur vient entièrement de la vision, pas du LLM.",
+      en: "On 490 images: object extraction F1 0.87, routing 40/40, correct Cypher 30/30, semantic search precision@5 of 0.94. Counts deviate from COCO by 20 % (median): the error comes entirely from vision, not from the LLM.",
+    },
+    tech: ["Ollama", "qwen3-vl", "Neo4j", "ChromaDB", "Gradio", "Python"],
+    github: "https://github.com/angestephane06/multimodal-graph-rag",
+  },
+  {
     id: "unet",
     title: {
       fr: "Asymétries 3D : ICP contre U-Net, export ONNX INT8",
