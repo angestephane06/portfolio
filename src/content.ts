@@ -14,6 +14,7 @@ export interface Project {
   result: T | null;
   tech: string[];
   github?: string;
+  report?: string;
   image?: string;
 }
 
@@ -53,6 +54,7 @@ export const ui = {
   result: { fr: "Résultat", en: "Result" },
   resultTodo: { fr: "Résultat à compléter.", en: "Result to be completed." },
   code: { fr: "Code", en: "Code" },
+  report: { fr: "Rapport (PDF)", en: "Report (PDF, French)" },
   cv: { fr: "CV (PDF)", en: "Résumé (PDF)" },
   contactText: {
     fr: "Un poste, un projet, une question sur un de mes travaux : écrivez-moi.",
@@ -79,6 +81,7 @@ export const featured: Project[] = [
     },
     tech: ["Python", "Docker", "Ollama", "pytest", "GitHub Actions", "GitLab CI", "Ansible", "Streamlit"],
     github: "https://github.com/angestephane06/llm-ctf-bench",
+    image: "/llm-ctf-bench-results.png",
   },
   {
     id: "unet",
@@ -115,8 +118,12 @@ export const featured: Project[] = [
       fr: "Descripteurs locaux SIFT contre descripteurs globaux d'un CNN pré-entraîné (VGG16), recherche linéaire et par KD-Tree, évaluation par courbes rappel-précision et mAP sur les bases COREL et NISTER.",
       en: "Local SIFT descriptors against global descriptors from a pre-trained CNN (VGG16), linear and KD-tree search, evaluated with precision-recall curves and mAP on the COREL and NISTER datasets.",
     },
-    result: null,
+    result: {
+      fr: "mAP de 0,97 (COREL) et 0,95 (NISTER) avec VGG16, contre 0,95 et 0,83 avec SIFT. Le KD-Tree accélère la recherche SIFT d'environ 500 fois (7,8 s → 0,015 s par requête sur COREL) mais fait baisser sa mAP ; VGG16 répond en moins d'une milliseconde.",
+      en: "mAP of 0.97 (COREL) and 0.95 (NISTER) with VGG16, against 0.95 and 0.83 with SIFT. The KD-tree makes SIFT search about 500 times faster (7.8 s → 0.015 s per query on COREL) but lowers its mAP; VGG16 answers in under a millisecond.",
+    },
     tech: ["Python", "OpenCV", "VGG16", "scikit-learn"],
+    report: "/rapports/recherche-images-cbir.pdf",
   },
 ];
 

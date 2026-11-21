@@ -170,10 +170,19 @@ function ProjectCard({
           <li key={tech}>{tech}</li>
         ))}
       </ul>
-      {project.github && (
-        <a className="code-link" href={project.github} target="_blank" rel="noreferrer">
-          {t(ui.code)} →
-        </a>
+      {(project.github || project.report) && (
+        <div className="card-links">
+          {project.github && (
+            <a href={project.github} target="_blank" rel="noreferrer">
+              {t(ui.code)} →
+            </a>
+          )}
+          {project.report && (
+            <a href={project.report} target="_blank" rel="noreferrer">
+              {t(ui.report)} →
+            </a>
+          )}
+        </div>
       )}
     </article>
   );

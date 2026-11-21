@@ -236,9 +236,14 @@ dd.todo {
   font-size: 0.8rem;
 }
 
-.code-link {
+.card-links {
+  display: flex;
+  gap: 1.25rem;
   margin-top: auto;
   padding-top: 0.9rem;
+}
+
+.card-links a {
   font-weight: 600;
   text-decoration: none;
 }
