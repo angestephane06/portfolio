@@ -5,6 +5,7 @@ import {
   featured,
   highlights,
   others,
+  pillars,
   profile,
   skills,
   stats,
@@ -96,6 +97,7 @@ export default function App() {
             <h1>{profile.name}</h1>
             <p className="headline">{t(profile.headline)}</p>
             <p className="intro">{t(profile.intro)}</p>
+            <p className="specialties">{t(profile.specialties)}</p>
             <div className="links">
               <a className="button primary" href={profile.cv} target="_blank" rel="noreferrer">
                 {t(ui.cv)}
@@ -119,12 +121,25 @@ export default function App() {
             <li key={s.label.en}>
               <span className="stat-value">{t(s.value)}</span>
               <span className="stat-label">{t(s.label)}</span>
+              <span className="stat-hint">{t(s.hint)}</span>
             </li>
           ))}
         </ul>
 
+        <section id="what">
+          <SectionTitle index="01" title={t(ui.whatIDo)} />
+          <div className="pillars">
+            {pillars.map((p) => (
+              <div key={p.title.en} className="pillar">
+                <h3>{t(p.title)}</h3>
+                <p>{t(p.text)}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section id="projects">
-          <SectionTitle index="01" title={t(ui.featuredTitle)} />
+          <SectionTitle index="02" title={t(ui.featuredTitle)} />
           <div className="featured">
             {featured.map((p, i) => (
               <FeaturedProject key={p.id} project={p} lang={lang} index={i + 1} />
@@ -139,7 +154,7 @@ export default function App() {
         </section>
 
         <section id="experience">
-          <SectionTitle index="02" title={t(ui.experience)} />
+          <SectionTitle index="03" title={t(ui.experience)} />
           <div className="two-cols">
             <Timeline entries={experience} lang={lang} />
             <div>
@@ -150,7 +165,7 @@ export default function App() {
         </section>
 
         <section id="skills">
-          <SectionTitle index="03" title={t(ui.skills)} />
+          <SectionTitle index="04" title={t(ui.skills)} />
           <div className="skills">
             {skills.map((group) => (
               <div key={group.title.en} className="skill-group">
@@ -166,7 +181,7 @@ export default function App() {
         </section>
 
         <section id="contact">
-          <SectionTitle index="04" title={t(ui.contact)} />
+          <SectionTitle index="05" title={t(ui.contact)} />
           <div className="contact-card">
             <p>{t(ui.contactText)}</p>
             <a className="mail" href={`mailto:${profile.email}`}>
@@ -286,15 +301,29 @@ function FeaturedProject({ project, lang, index }: { project: Project; lang: Lan
           <span className="num">{String(index).padStart(2, "0")}</span> {project.context[lang]}
         </p>
         <h3>{project.title[lang]}</h3>
+        {project.summary && <p className="summary">{project.summary[lang]}</p>}
         <dl>
           <dt>{ui.problem[lang]}</dt>
           <dd>{project.problem[lang]}</dd>
           <dt>{ui.approach[lang]}</dt>
           <dd>{project.approach[lang]}</dd>
           <dt>{ui.result[lang]}</dt>
-          <dd className={project.result ? "result" : "todo"}>
-            {project.result ? project.result[lang] : ui.resultTodo[lang]}
-          </dd>
+          {project.keyResults ? (
+            <dd>
+              <ul className="key-results">
+                {project.keyResults.map((k) => (
+                  <li key={k.value.en}>
+                    <span className="key-value">{k.value[lang]}</span>
+                    <span className="key-text">{k.text[lang]}</span>
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          ) : (
+            <dd className={project.result ? "result" : "todo"}>
+              {project.result ? project.result[lang] : ui.resultTodo[lang]}
+            </dd>
+          )}
         </dl>
         <ul className="tags">
           {project.tech.map((tech) => (
