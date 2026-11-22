@@ -132,12 +132,12 @@ export const featured: Project[] = [
       en: "Query a photo collection in natural language with local models only, and know how right the answers are.",
     },
     approach: {
-      fr: "Une IA de vision (qwen3-vl) décrit chaque photo : légende, lieu, objets visibles. Ces descriptions alimentent une base de données en graphe (Neo4j), pour compter et croiser, et un index de recherche par le sens (ChromaDB). Pour chaque question, un modèle de langage choisit la bonne méthode, écrit la requête (en lecture seule, limitée à 10 secondes) et répond en citant les photos. Tout est mesuré sur 490 photos de la base COCO, dont on connaît le contenu exact.",
-      en: "A vision AI (qwen3-vl) describes each photo: caption, setting, visible objects. These descriptions feed a graph database (Neo4j), for counting and cross-checking, and a meaning-based search index (ChromaDB). For each question, a language model picks the right method, writes the query (read-only, limited to 10 seconds) and answers citing the photos. Everything is measured on 490 photos from the COCO dataset, whose exact content is known.",
+      fr: "Une IA de vision (qwen3-vl) décrit chaque photo : légende, lieu, objets visibles. Ces descriptions alimentent une base de données en graphe (Neo4j), pour compter et croiser, et un index de recherche par le sens (ChromaDB). Pour chaque question, un modèle de langage choisit la bonne méthode, écrit la requête (en lecture seule, limitée à 10 secondes) et répond en citant les photos. Tout est mesuré sur 500 photos de la base COCO, dont on connaît le contenu exact.",
+      en: "A vision AI (qwen3-vl) describes each photo: caption, setting, visible objects. These descriptions feed a graph database (Neo4j), for counting and cross-checking, and a meaning-based search index (ChromaDB). For each question, a language model picks the right method, writes the query (read-only, limited to 10 seconds) and answers citing the photos. Everything is measured on 500 photos from the COCO dataset, whose exact content is known.",
     },
     result: {
-      fr: "Sur 490 images : extraction des objets F1 0,87, routage 40/40, Cypher correct 30/30, précision@5 de 0,94 en recherche sémantique. Les comptages s'écartent de 20 % en médiane de la vérité COCO : l'erreur vient entièrement de la vision, pas du LLM.",
-      en: "On 490 images: object extraction F1 0.87, routing 40/40, correct Cypher 30/30, semantic search precision@5 of 0.94. Counts deviate from COCO by 20 % (median): the error comes entirely from vision, not from the LLM.",
+      fr: "Sur 500 images : extraction des objets F1 0,88, routage 40/40, Cypher correct 29/30, précision@5 de 0,90 en recherche sémantique. Les comptages s'écartent de 14 % en médiane de la vérité COCO. Huit variantes de modèles de vision et de consignes comparées sur 100 images de réglage séparées : l'extraction plafonne vers 0,88.",
+      en: "On 500 images: object extraction F1 0.88, routing 40/40, correct Cypher 29/30, semantic search precision@5 of 0.90. Counts deviate from COCO by 14 % (median). Eight vision-model and prompt variants compared on 100 separate tuning images: extraction plateaus around 0.88.",
     },
     keyResults: [
       {
@@ -145,20 +145,20 @@ export const featured: Project[] = [
         text: { fr: "questions envoyées vers la bonne méthode : compter dans la base de données, ou chercher des photos par leur sens.", en: "questions sent to the right method: counting in the database, or searching photos by meaning." },
       },
       {
-        value: { fr: "30 / 30", en: "30 / 30" },
-        text: { fr: "questions de comptage traduites sans erreur en requêtes de base de données par le modèle de langage.", en: "counting questions translated without error into database queries by the language model." },
+        value: { fr: "29 / 30", en: "29 / 30" },
+        text: { fr: "questions de comptage traduites correctement en requêtes de base de données par le modèle de langage.", en: "counting questions correctly translated into database queries by the language model." },
       },
       {
-        value: { fr: "94 %", en: "94 %" },
+        value: { fr: "2 sur 3", en: "2 in 3" },
+        text: { fr: "des comptages justes à une photo près (20 sur 30) ; l'écart médian avec la réalité est de 14 %. L'erreur vient de la lecture des images, pas du raisonnement.", en: "of the counts are right within one photo (20 of 30); the median gap with reality is 14 %. The error comes from reading the images, not from the reasoning." },
+      },
+      {
+        value: { fr: "90 %", en: "90 %" },
         text: { fr: "des photos proposées par la recherche par le sens sont pertinentes (sur les 5 premières).", en: "of the photos returned by the meaning-based search are relevant (top 5)." },
       },
       {
-        value: { fr: "0,87 / 1", en: "0.87 / 1" },
-        text: { fr: "qualité du repérage des objets par l'IA de vision, comparé aux annotations de référence (score F1).", en: "quality of object spotting by the vision AI, compared with reference annotations (F1 score)." },
-      },
-      {
-        value: { fr: "20 %", en: "20 %" },
-        text: { fr: "écart médian entre les comptages de l'assistant et la réalité : l'erreur vient de la lecture des images, pas du raisonnement.", en: "median gap between the assistant's counts and reality: the error comes from reading the images, not from the reasoning." },
+        value: { fr: "8 variantes", en: "8 variants" },
+        text: { fr: "d'IA de vision et de consignes comparées sur 100 photos de réglage, mises à part du test : un modèle 4 fois plus gros ne gagne que 0,01 sur 1. La limite vient de ce que l'IA voit, pas de la façon de l'interroger.", en: "of vision AI and prompts compared on 100 tuning photos kept apart from the test: a model 4 times larger gains only 0.01 out of 1. The limit is what the AI sees, not how it is asked." },
       },
     ],
     tech: ["Ollama", "qwen3-vl", "Neo4j", "ChromaDB", "Gradio", "Python"],
@@ -391,7 +391,7 @@ export const skills: { title: T; items: string[] }[] = [
 // from a published run or report (see the repositories).
 export const highlights: { repo: string; line: T }[] = [
   { repo: "llm-ctf-bench", line: { fr: "3 IA face à 15 défis de cybersécurité : la meilleure en réussit la moitié", en: "3 AIs facing 15 security challenges: the best one solves half of them" } },
-  { repo: "multimodal-graph-rag", line: { fr: "un assistant photo qui cite ses sources : requêtes justes 30 fois sur 30", en: "a photo assistant that cites its sources: right query 30 times out of 30" } },
+  { repo: "multimodal-graph-rag", line: { fr: "un assistant photo qui cite ses sources : 40 questions sur 40 bien orientées", en: "a photo assistant that cites its sources: 40 questions out of 40 routed right" } },
   { repo: "asymmetry-unet", line: { fr: "trouve le côté déformé d'un visage 3D : 0,88 sur 1, contre 0,41 en classique", en: "finds the deformed side of a 3D face: 0.88 out of 1, vs 0.41 for the classic method" } },
 ];
 
@@ -402,9 +402,9 @@ export const stats: { value: T; label: T; hint: T }[] = [
     hint: { fr: "chacun dans un environnement isolé et jetable", en: "each in an isolated, disposable environment" },
   },
   {
-    value: { fr: "30/30", en: "30/30" },
-    label: { fr: "questions bien traduites", en: "questions correctly translated" },
-    hint: { fr: "en requêtes de base de données par l'assistant photo", en: "into database queries by the photo assistant" },
+    value: { fr: "40/40", en: "40/40" },
+    label: { fr: "questions bien orientées", en: "questions routed right" },
+    hint: { fr: "vers la bonne méthode par l'assistant photo : compter ou chercher", en: "to the right method by the photo assistant: count or search" },
   },
   {
     value: { fr: "0,88", en: "0.88" },
